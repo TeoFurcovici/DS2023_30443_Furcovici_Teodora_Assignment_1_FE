@@ -1,0 +1,76 @@
+.popupU {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.popup-innerU {
+    border-radius: 40px; 
+    position: relative;
+    padding: 32px;
+    width: 500px;
+    max-width: 640px;
+    background-color: white;
+    border-radius: 50px; 
+}
+
+
+.popup-innerU .close-btnU {
+    position: absolute;
+    bottom:507%;
+    right: 6px;
+    width: 60px;
+    background: #baa1d1;
+    color: black;
+    padding-bottom: 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    height: 25px;
+    
+}
+.titlePopUpAtt{
+    padding-left: 100px;
+    padding-bottom: 20px;
+}
+
+.formName{
+    justify-content: center;
+    text-align: center;
+}
+.formDescription{
+    justify-content: center;
+    text-align: center;
+}
+.formZone{
+    justify-content: center;
+    text-align: center;
+}
+.formStreet{
+    justify-content: center;
+    text-align: center;
+}
+.formStreetNr{
+    justify-content: center;
+    text-align: center;
+}
+.formType{
+    justify-content: center;
+    text-align: center;
+}
+.updateButton{
+    margin-left: 184px;
+    background: #baa1d1;
+    color: black;
+    border-radius: 30px;
+
+}

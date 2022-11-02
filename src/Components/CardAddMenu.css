@@ -1,0 +1,47 @@
+.popupAM {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.popup-innerAM {
+    border-radius: 40px; 
+
+    position: relative;
+    padding: 32px;
+    width: 500px;
+    max-width: 640px;
+    background-color: white;
+    border-radius: 50px; 
+}
+.popup-innerAM .close-btnAM {
+    position: absolute;
+    bottom:280%;
+    right: 16px;
+    width: 70px;
+    background: #baa1d1;
+    color: black;
+    padding-bottom: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    height: 25px;
+}
+.titlePopUpAM{
+    padding-left: 180px;
+    padding-bottom: 10px;
+}
+
+.formName{
+    justify-content: center;
+    text-align: center;
+}

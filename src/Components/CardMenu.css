@@ -1,0 +1,89 @@
+
+.popupMenu {
+ 
+    position: absolute;
+    bottom:370%;
+    right: 16px;
+    width: 170px;
+    background: #baa1d1;
+    color: black;
+    padding-bottom: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    height: 25px;
+    z-index: 1051 !important;
+
+}
+
+.popup-innerMenu {
+    border-radius: 40px; 
+
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: white;
+}
+.name{
+    padding-bottom: 10px;
+}
+
+.popup-innerMenu .close-btnMenu {
+    position: absolute;
+    bottom:50%;
+    left: 16px;
+    width: 70px;
+    background: white;
+    color: black;
+    padding-bottom: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    height: 25px;
+}
+.popup-innerMenu .close-btnF {
+    position: absolute;
+    bottom:50%;
+    left: 106px;
+    width: 105px;
+    background: white;
+    color: black;
+    padding-bottom: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    height: 25px;
+}
+
+
+.popupMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+.popup-innerMenu {
+    border-radius: 40px; 
+
+    position: relative;
+    padding: 32px;
+    width: 140%;
+    max-width: 640px;
+    background-color: white;
+    border-radius: 10px; 
+    overflow-x:auto;
+}
+.rowM{
+    width: 140%;
+}
