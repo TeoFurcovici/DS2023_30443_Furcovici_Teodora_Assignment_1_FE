@@ -13,7 +13,7 @@ const CardRestAdmin = ({ resultRestA, triggerCardRestA, setCardRestA, usernameA 
     const [cardAddMenu, setCardAddMenu] = useState({ triggerCardMenu: false, restaurantName: "", titleMenu: "New Menu?" });
     const [enableAddMenu, setEnableAddMenu] = useState(false)
     const [reviewCardA, setReviewCardA] = useState(false)
-    const [device, setDevice] = useState({ activeAttraction: false, titleA: "New Device? ",listOfAllUsers:[],address:"",maxHourEnergyConsumption:""})
+    const [device, setDevice] = useState({ activeAttraction: false, titleA: "New Device? ",listOfAllUsers:[],address:"",description:"",maxHourEnergyConsumption:""})
     const [simpleCard, setSimpleCard] = useState(false)
     const [specialRestCard, setSpecialRestCard] = useState(false)
 
@@ -21,7 +21,7 @@ const CardRestAdmin = ({ resultRestA, triggerCardRestA, setCardRestA, usernameA 
         toast('Oops! It looks like this restaurant already have a menu! ', { position: toast.POSITION.TOP_RIGHT })
     }
 
-    const goToDevice =(address,maxHourEnergyConsumption) => {
+    const goToDevice =(address,description,maxHourEnergyConsumption) => {
         let tempListOfUsers=[]
         fetch("http://localhost:8080/energyUtilityPlatform/demo/getAllRegularUsers")
         .then(async response => {
@@ -31,7 +31,7 @@ const CardRestAdmin = ({ resultRestA, triggerCardRestA, setCardRestA, usernameA 
                 return Promise.reject(error);
             }
             setDevice({ activeAttraction: true, title: "New Device?",listOfAllUsers:tempListOfUsers,
-        address:address, maxHourEnergyConsumption:maxHourEnergyConsumption})
+        address:address,description:description, maxHourEnergyConsumption:maxHourEnergyConsumption})
         })
 
         .catch(error => {
@@ -75,7 +75,7 @@ const CardRestAdmin = ({ resultRestA, triggerCardRestA, setCardRestA, usernameA 
                                     <Card.Text><b>Maximum Consumption: </b>{resultRestA.maxHourEnergyConsumption}</Card.Text>
                                     </Card.Body>
                                 {buttonMenuAdd &&
-                                    <Button variant="outline-danger" onClick={() => goToDevice(resultRestA.address,resultRestA.maxHourEnergyConsumption)}>Update Device </Button>
+                                    <Button variant="outline-danger" onClick={() => goToDevice(resultRestA.address,resultRestA.description,resultRestA.maxHourEnergyConsumption)}>Update Device </Button>
                                 }
                                  {buttonDeviceDelete &&
                                     <Button variant="outline-danger"  onClick={() => deleteDevice(resultRestA.address)} >Delete Device </Button>
@@ -101,6 +101,7 @@ const CardRestAdmin = ({ resultRestA, triggerCardRestA, setCardRestA, usernameA 
                     titleA={device.titleA}
                     listOfAllUsers={device.listOfAllUsers}
                     address={device.address}
+                    description={device.description}
                     maxHourEnergyConsumption={device.maxHourEnergyConsumption}
                 />
             }

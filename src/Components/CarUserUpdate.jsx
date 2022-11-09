@@ -1,23 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import "./CardUserUpdate.css"
-import { Card, Row, Col, Container,Form,Button} from "react-bootstrap";
+import { Card,Form,Button} from "react-bootstrap";
 import { toast } from 'react-toastify'
-import $ from 'jquery'; 
 
-const CardUserUpdate = ({ triggerUserCard, setUser,usernameProps}) => {
+const CardUserUpdate = ({ triggerUserCard, setUser,firstNameProps,lastNameProps,emailProps,usernameProps}) => {
     const[firstName,setNewFirstName]=useState("")
     const[lastName,setNewLastName]=useState("")
-    const[email,setEmail]=useState("")
+    const[email,setNewEmail]=useState("")
     const[username,setUsername]=useState("")
     const[enableButtons,setEnableButtons]=useState(false)
-    const[ceva,setCeva]=useState("ceva")
     const notifySuccesfullyUpdatedUser = () => {
         toast('Yeey! Your account has been successfully updated!', { position: toast.POSITION.TOP_RIGHT })
     }
+
+    useEffect(() => {
+        setNewFirstName(firstNameProps);
+        setNewLastName(lastNameProps);
+        setNewEmail(emailProps);
+        setUsername(usernameProps)
+      }, [firstNameProps, lastNameProps,emailProps,usernameProps]);
+
     const updateUser = async (e) => {
         e.preventDefault()
         setEnableButtons(true)
-        let item = {firstName,lastName,email,username}
+      
         let result = await fetch("http://localhost:8080/energyUtilityPlatform/demo/updateUser/"+usernameProps, {
           method: 'PUT',
           headers: {
@@ -25,7 +31,12 @@ const CardUserUpdate = ({ triggerUserCard, setUser,usernameProps}) => {
             "Accept": "application/json"
     
           },
-          body: JSON.stringify(item)
+          body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            username: username
+          })
         });
     
         if(result.ok)
@@ -42,16 +53,16 @@ const CardUserUpdate = ({ triggerUserCard, setUser,usernameProps}) => {
                 <Card.Body>
                     <Form className='formUser'>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text"   placeholder="First Name" className='formName' onChange={(e)=>setNewFirstName(e.target.value)} />
+                            <Form.Control type="text"   placeholder="First Name" className='formName'  value={firstName}  onChange={(e)=>setNewFirstName(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text"   placeholder="Last Name" className='formStreet' onChange={(e)=>setNewLastName(e.target.value)} />
+                            <Form.Control type="text"   placeholder="Last Name" className='formStreet' value={lastName}  onChange={(e)=>setNewLastName(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text"  placeholder="Email" className='formZone' onChange={(e)=>setEmail(e.target.value)} />
+                            <Form.Control type="text"  placeholder="Email" className='formZone'  value={email}  onChange={(e)=>setNewEmail(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text"  placeholder="Username"  className='formZone' onChange={(e)=>setUsername(e.target.value)} />
+                            <Form.Control type="text"  placeholder="Username"  className='formZone' value={username}  onChange={(e)=>setUsername(e.target.value)} />
                         </Form.Group>
                         <Button variant="outline-dark" type="button" className='updateAccount'  onClick={(e) => updateUser(e) } >Update Account  </Button>
                     </Form>

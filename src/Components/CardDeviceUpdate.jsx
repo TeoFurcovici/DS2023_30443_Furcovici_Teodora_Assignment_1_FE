@@ -1,21 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./CardDeviceUpdate.css"
 import { Card, Row, Col, Container,Form,Button} from "react-bootstrap";
 import { toast } from 'react-toastify'
 
-const CardDeviceUpdate = ({ triggerAttraction, setDevice,titleA,listOfAllUsers,address,maxHourEnergyConsumption }) => {
+const CardDeviceUpdate = ({ triggerAttraction, setDevice,titleA,listOfAllUsers,address,description,maxHourEnergyConsumption }) => {
     const[newAddress,setnewAddress]=useState("")
     const[newMaxHourEnergyConsumption,setNewMaxHourEnergyConsumption]=useState("")
-    const[description,setDescription]=useState("")
+    const[newDescription,setNewDescription]=useState("")
     const[enableButtons,setEnableButtons]=useState(false)
     const[username,setUsername]=useState("")
     const notifySuccesfullyUpdatedDevice = () => {
         toast('Yeey! Device updated successfully!', { position: toast.POSITION.TOP_RIGHT })
     }
+
+    useEffect(() => {
+        setnewAddress(address);
+        setNewMaxHourEnergyConsumption(maxHourEnergyConsumption);
+        setNewDescription(description)
+      }, [address, maxHourEnergyConsumption]);
+
     const updateDevice = async (e) => {
          e.preventDefault()
         setEnableButtons(true)
-        let item = {address,description,maxHourEnergyConsumption,username}
         let result = await fetch("http://localhost:8080/energyUtilityPlatform/demo/updateDevice/"+address+"/"+maxHourEnergyConsumption, {
           method: 'PUT',
           headers: {
@@ -23,7 +29,12 @@ const CardDeviceUpdate = ({ triggerAttraction, setDevice,titleA,listOfAllUsers,a
             "Accept": "application/json"
     
           },
-          body: JSON.stringify(item)
+          body: JSON.stringify({
+            address: newAddress,
+            description: newDescription,
+            maxHourEnergyConsumption: newMaxHourEnergyConsumption,
+            username: username
+          })
         });
     
         if(result.ok)
@@ -42,13 +53,13 @@ const CardDeviceUpdate = ({ triggerAttraction, setDevice,titleA,listOfAllUsers,a
 
                     <Form>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text" placeholder="Device Description" className='formName' onChange={(e)=>setDescription(e.target.value)} />
+                            <Form.Control type="text" placeholder="Device Description" className='formName' value={newDescription}  onChange={(e)=>setNewDescription(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text" placeholder="Address" className='formStreet' onChange={(e)=>setnewAddress(e.target.value)} />
+                            <Form.Control type="text" placeholder="Address" className='formStreet' value={newAddress} onChange={(e)=>setnewAddress(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="nameReview">
-                            <Form.Control type="text" placeholder="Max HourEnergy Consumption" className='formZone' onChange={(e)=>setNewMaxHourEnergyConsumption(e.target.value)} />
+                            <Form.Control type="text" placeholder="Max HourEnergy Consumption" value={newMaxHourEnergyConsumption} className='formZone' onChange={(e)=>setNewMaxHourEnergyConsumption(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="nameReview">
                             <Form.Select value={username}  onChange={(e) => setUsername(e.target.value)} >

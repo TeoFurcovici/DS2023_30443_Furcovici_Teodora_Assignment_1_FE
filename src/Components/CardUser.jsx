@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Card, Row, Col, Container } from "react-bootstrap";
 import Button from '@mui/material/Button';
 import './CardUser.css'
-import CarUserUpdate from './CarUserUpdate'
 import { toast } from 'react-toastify'
 import CardUserUpdate from './CarUserUpdate';
 
@@ -11,26 +10,12 @@ const CardUser = ({ resultRestU, triggerCardRestU, setCardRestU }) => {
     const [buttonMenuAdd, setButtonMenuAdd] = useState(true)
     const [buttonDeviceDelete, setButtonDeviceDelete] = useState(true)
     const [reviewCardA, setReviewCardA] = useState(false)
-    const [user, setUser] = useState({ triggerUserCard: false, username:"",firstName:"",lastName:"",email:""})
+    const [user, setUser] = useState({ triggerUserCard: false, firstName:"",lastName:"",email:"",username:""})
     const [simpleCard, setSimpleCard] = useState(false)
-    const [specialRestCard, setSpecialRestCard] = useState(false)
-    const [data, setData] = useState('');
+    const [specialRestCard, setSpecialRestCard] = useState(false);
 
-    const goToDevice =(usernameProps,firstNameProps,lastNameProps,emailProps) => {
+    const goToUserDetailsModal =(firstNameProps,lastNameProps,emailProps,usernameProps) => {
         let tempListOfUsers=[]
-        // fetch("http://localhost:8080/energyUtilityPlatform/demo/findUserByUsername/" + usernameProps)
-        // .then(async response => {
-        //     const data = await response.json();
-        //     if (!response.ok) {
-        //         const error = (data && data.message) || response.statusText;
-        //         return Promise.reject(error);
-        //     }
-        //     setData(data)
-        // })
-        // .catch(error => {
-        //     console.log("There was an error!", error);
-        // });
-
         fetch("http://localhost:8080/energyUtilityPlatform/demo/getAllRegularUsers")
         .then(async response => {
             tempListOfUsers = await response.json();
@@ -38,7 +23,7 @@ const CardUser = ({ resultRestU, triggerCardRestU, setCardRestU }) => {
                 const error = (tempListOfUsers && tempListOfUsers.message) || response.statusText;
                 return Promise.reject(error);
             }
-            setUser({ triggerUserCard: true, username:usernameProps})
+            setUser({ triggerUserCard: true, firstName:firstNameProps,lastName:lastNameProps,email:emailProps,username:usernameProps})
         })
 
         .catch(error => {
@@ -82,7 +67,7 @@ const CardUser = ({ resultRestU, triggerCardRestU, setCardRestU }) => {
                                     <Card.Text><b>Username: </b>{resultRestU.userAccount.username}</Card.Text>
                                 </Card.Body>
                                 {buttonMenuAdd &&
-                                    <Button variant="outline-danger" onClick={() => goToDevice(resultRestU.userAccount.username,resultRestU.userAccount.firstName,resultRestU.userAccount.lastName,resultRestU.userAccount.email)}>Update User </Button>
+                                    <Button variant="outline-danger" onClick={() => goToUserDetailsModal(resultRestU.userAccount.firstName,resultRestU.userAccount.lastName,resultRestU.userAccount.email,resultRestU.userAccount.username)}>Update User </Button>
                                 }
                                  {buttonDeviceDelete &&
                                     <Button variant="outline-danger"  onClick={() => deleteUser(resultRestU.userAccount.username)} >Delete User </Button>
@@ -97,6 +82,9 @@ const CardUser = ({ resultRestU, triggerCardRestU, setCardRestU }) => {
                 <CardUserUpdate
                     triggerUserCard={user.triggerUserCard}
                     setUser={setUser}
+                    firstNameProps={user.firstName}
+                    lastNameProps={user.lastName}
+                    emailProps={user.email}
                     usernameProps={user.username}
 
                 />
