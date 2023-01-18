@@ -1,0 +1,17 @@
+.btn-join{
+    background-color: #A06CD0;
+    color: white;
+    border-radius: 8px;
+    border-color: #724a96;
+    margin-top: 10px;
+    width: 20%;
+  }
+
+  .btn-join:hover{
+    background-color: white;
+    color: #A06CD0;
+    border-radius: 8px;
+    width: 20%;
+    margin-top: 10px;
+
+  }

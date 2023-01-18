@@ -11,7 +11,6 @@ import Fab from '@mui/material/Fab';
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import './Card.css'
 import AddIcon from '@mui/icons-material/Add';
-import Review from './Review'
 import { toast } from 'react-toastify';
 
 import UserPage from './UserPage'
@@ -115,18 +114,6 @@ const CardComponent = ({ result, triggerCard, setCard, username }) => {
           </Collapse>
         </Box>
       } */}
-      {review &&
-        <Review
-          triggerReview={review.activeReview}
-          setReview={setReview}
-          title={review.title}
-          nameAttraction={nameAttraction}
-          username={username}
-        />
-      }
-    
-
-
     </div>
   ) : () => setCard(false)
 }

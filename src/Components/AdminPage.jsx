@@ -1,12 +1,14 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState  } from 'react'
 import { Navbar, Container, Offcanvas, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import './AdminPage.css'
 import App from '../App'
 import Attraction from './Attraction'
 import CardRestAdmin from './CardRestAdmin'
 import CardUser from './CardUser'
+import ChatAdmin from './ChatAdmin/ChatAdmin'
 
-const AdminPage = ({ propsAdmin, triggerA }) => {
+
+const AdminPage = ({ propsAdmin, triggerA,roleType }) => {
   const [toLogin, setLogin] = useState(false)
   const [disableAdminPage, setDisableAdminage] = useState(false)
   const [reviewCardA, setReviewCardA] = useState(false)
@@ -14,13 +16,28 @@ const AdminPage = ({ propsAdmin, triggerA }) => {
   const [simpleCard, setSimpleCard] = useState(false)
   const [specialRestCard, setSpecialRestCard] = useState(false)
   const [specialCardUser, setSpecialCardUser] = useState(false)
+  const [toChat, setToChat] = useState(false)
   const [cardRestA, setCardRestA] = useState({ resultRestA: [], triggerCardRestA: false , usernameA:""});
   const [cardUser, setUser] = useState({ resultRestU: [], triggerCardRestU: false });
 
+
+  
   const goToLoginAdmin = () => {
     setSpecialRestCard(false)
 
     setLogin(true);
+    setReviewCardA(false)
+    setDisableAdminage(true)
+    setSimpleCard(false)
+    setSpecialCardUser(false)
+
+  }
+
+  const goToChat = () => {
+
+    setToChat(true)
+    setSpecialRestCard(false)
+    setLogin(false);
     setReviewCardA(false)
     setDisableAdminage(true)
     setSimpleCard(false)
@@ -119,8 +136,7 @@ const allUsers = async (e) => {
     setSpecialRestCard(false)
     setSpecialCardUser(false)
 
-  }
-
+  }  
   return (triggerA) ? (
     <div>
       {!disableAdminPage &&
@@ -133,6 +149,7 @@ const allUsers = async (e) => {
                 <Nav className="me-auto">
                   <Nav.Link onClick={goToLoginAdmin}>Home</Nav.Link>
                   <Nav.Link onClick={goToDevice}>Add Device</Nav.Link>
+                  <Nav.Link onClick={(e) => goToChat(e)}>Chat</Nav.Link>
                   <NavDropdown title="Options" id="basic-nav-dropdown">
                     <NavDropdown.Item onClick={(e) => allDevices(e)}>All Devices</NavDropdown.Item>
                     <NavDropdown.Item onClick={(e) => allAvailableDevices(e)}>All Available Devices </NavDropdown.Item>
@@ -169,9 +186,13 @@ const allUsers = async (e) => {
             setCardRestU={setUser}
             />
       }
+      {toChat &&
+        <ChatAdmin
+        userRole={roleType}/>
+
+      }
         
     </div>
   ) : ""
-
 }
 export default AdminPage

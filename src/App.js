@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Form, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import './App.css';
 import "bootstrap/dist/css/bootstrap.css"
@@ -7,8 +7,9 @@ import introIcon from './images/worldIcon.svg'
 import { toast } from 'react-toastify'
 import UserPage from './Components/UserPage'
 import SignUp from './Components/SignUp'
-import Menu from './Components/Menu'
 import AdminPage from './Components/AdminPage'
+
+
 
 
 toast.configure()
@@ -20,10 +21,12 @@ function App() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isAdmin, setIsAdmin] = useState("");
-    const [userPage, setUserPage] = useState({ parentToChild: "", active: false })
+    const [userPage, setUserPage] = useState({ parentToChild: "", active: false,userId:0})
     const [adminPage, setAdminPage] = useState({ parentToChild: "", active: false })
     const [showUserPage, setShowUserPage] = useState(false)
     const [showAdminPage, setShowAdminPage] = useState(false)
+    
+        
     const notifyUsernameEmpty = () => {
         toast('Oops! Username cannot be empty !', { position: toast.POSITION.TOP_RIGHT })
     }
@@ -55,6 +58,8 @@ function App() {
     const goToSignUp = () => {
         setSignUp(true);
     }
+      
+
     const login = async () => {
         let noEmptyFields = validateInputLogin();
         if (noEmptyFields) {
@@ -71,8 +76,9 @@ function App() {
                         if (data.password === password) {
                             setData(username)
                             setShowUserPage(true)
+                            setIsAdmin(data.isAdmin)
                             setLogin(true)
-                            setUserPage({ parentToChild: username, active: true })
+                            setUserPage({ parentToChild: username, active: true,userId:data.accountId })
                         }
                         else {
                             accountNotFound()
@@ -83,6 +89,7 @@ function App() {
                         if (data.password === password) {
                             parentToChild()
                             setShowAdminPage(true)
+                            setIsAdmin(data.isAdmin)
                             setLogin(true)
                             setAdminPage({ parentToChild: username, active: true })
                         }
@@ -99,9 +106,8 @@ function App() {
                 });
         }
     }
-
     return (
-
+       
         <div>
 
             {!isLoggedIn && !toMenu && !isSignUp &&
@@ -156,23 +162,23 @@ function App() {
                 <UserPage
                     props={data}
                     trigger={userPage.active}
+                    accountId={userPage.userId}
+                    roleType={isAdmin}
                 />
             }
             {isLoggedIn && showAdminPage &&
                 <AdminPage
                     propsAdmin={data}
-                    triggerA={adminPage.active} />
-            }
-            {toMenu &&
-                <Menu />
+                    triggerA={adminPage.active} 
+                    roleType={isAdmin}/>
             }
             {isSignUp &&
                 <SignUp />
             }
+            
         </div>
 
     )
 }
-
-export default App
+export default App;
 

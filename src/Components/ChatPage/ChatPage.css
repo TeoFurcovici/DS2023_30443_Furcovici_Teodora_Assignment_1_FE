@@ -1,0 +1,36 @@
+.chatpage {
+    display: flex;
+    border: 1px solid darkgrey;
+    height: 100%;
+  }
+  
+  .userslist-section {
+    flex: 1;
+  }
+  
+  .chatpage-section {
+    flex: 2;
+    border: 1px solid darkgrey;
+  }
+  .btn-refresh{
+    background-color: #A06CD0;
+    color: white;
+    border-radius: 8px;
+    border-color: #724a96;
+    margin: 10px;
+    width: 55%;
+  }
+
+  .btn-refresh:hover{
+    background-color: white;
+    color: #A06CD0;
+    border-radius: 8px;
+    margin: 10px;
+    width: 55%;
+  }
+  .btn-refreshParent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

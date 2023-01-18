@@ -11,8 +11,6 @@ import Fab from '@mui/material/Fab';
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import './CardRestaurant.css'
 import AddIcon from '@mui/icons-material/Add';
-import Review from './Review'
-import CardMenu from'./CardMenu'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "bootstrap/dist/css/bootstrap.css"
@@ -94,27 +92,6 @@ function CardRestaurant  ({ resultRest, triggerCardRest, setCardRest, username }
                     </Collapse>
                 </Box>
             }
-            {review &&
-                <Review
-                    triggerReview={review.activeReview}
-                    setReview={setReview}
-                    title={review.title}
-                    nameAttraction={nameAttraction}
-                    username={username}
-                />
-            }
-            {menu &&
-                <CardMenu
-                    resultM={menu.resultM}
-                    triggerCardM={menu.triggerCardM}
-                    setCardM={setMenu}
-                    name={menu.name}
-                    isAdmin={menu.isAdmin}
-                />
-            }
-
-
-
         </div>
     ) : () => setCardRest(false)
 }

@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Card, Row, Col, Container, Button } from "react-bootstrap";
 import './CardMenu.css'
-import Food from './Food'
 const CardMenu = ({ resultM, triggerCardM, setCardM, restName, isAdmin }) => {
     const [food, setFood] = useState({ triggerFood: false, titleF: "Want to enlarge your menu? ", menuName: "" })
     const [enableFood, setEnableFood] = useState(false)
@@ -62,14 +61,6 @@ const CardMenu = ({ resultM, triggerCardM, setCardM, restName, isAdmin }) => {
                     </Row>
                 </Container>
             </div>
-            {enableFood &&
-                <Food
-                    triggerFood={food.triggerFood}
-                    setFood={setFood}
-                    titleF={food.titleF}
-                    menuName={menuName1}
-                />
-            }
         </div >
 
     ) : () => setCardM(false)
